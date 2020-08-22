@@ -8,7 +8,7 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends build-essent
     libsndfile1 
 
 COPY app/requirements.txt .
-COPY app/requirements-fastai2audio.txt .
+
 RUN pip install --upgrade -r requirements.txt
 
 COPY app app/

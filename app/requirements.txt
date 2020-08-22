@@ -14,4 +14,3 @@ numpy==1.18.5
 Pillow==7.0.0
 librosa==0.6.3
 packaging
--r requirements-fastai2audio.txt
