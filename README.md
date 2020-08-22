@@ -12,3 +12,5 @@ Heroku deployment of mf ct audio app
 
 3. Push your app to Heroku: `git push heroku master`
 
+4. Connect your github repo directly for push deployments
+
