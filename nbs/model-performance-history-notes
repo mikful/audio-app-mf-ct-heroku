@@ -1,0 +1,146 @@
+Model history: Best performing model first
+
+------
+xresnet18 standard with full dataset (extra test set from before), 80 epochs, more item_tfms (noise, vol, etc)
+
+V1:
+
+data: item_tfms but no batch_tfms
+
+model: xresnet18 standard non-pretrained
+cbs: MixUp
+lr schedule: fit_one_cycle
+epochs: 80
+
+local: 19011_audio-app_model_v1.ipynb
+https://colab.research.google.com/drive/1KzURTKQP1Efggp-LH7zRJxx-bqYJZhPf#scrollTo=A0k1jP6WM5-q
+https://github.com/mikful/audio-app-mf-ct/blob/master/fastai2_xresnet18_50epoch_v1.ipynb
+https://storage.googleapis.com/fastai-export-bucket/xresnet18-mixup-50epoch-v1.pkl
+
+Full dataset Performance:
+
+- lwlrap: 0.75397
+
+Deployment:
+
+- Using TTA
+
+
+
+------
+xresnet18 standard with full dataset (extra test set from before), 80 epochs
+
+V1:
+
+data: item_tfms but no batch_tfms
+
+model: xresnet18 standard non-pretrained
+cbs: MixUp
+lr schedule: fit_one_cycle
+epochs: 80
+
+local: 19011_audio-app_model_v1.ipynb
+https://colab.research.google.com/drive/1KzURTKQP1Efggp-LH7zRJxx-bqYJZhPf#scrollTo=A0k1jP6WM5-q
+https://github.com/mikful/audio-app-mf-ct/blob/master/fastai2_xresnet18_50epoch_v1.ipynb
+https://storage.googleapis.com/fastai-export-bucket/xresnet18-mixup-50epoch-v1.pkl
+
+Full dataset Performance:
+
+- lwlrap: 0.7494
+
+Deployment:
+
+- Using TTA
+
+
+------
+xresnet18 standard
+
+V1:
+
+data: item_tfms but no batch_tfms
+
+model: xresnet18 standard non-pretrained
+cbs: MixUp
+lr schedule: fit_one_cycle
+epochs: 50
+
+local: 19011_audio-app_model_v1.ipynb
+https://colab.research.google.com/drive/1KzURTKQP1Efggp-LH7zRJxx-bqYJZhPf#scrollTo=A0k1jP6WM5-q
+https://github.com/mikful/audio-app-mf-ct/blob/master/fastai2_xresnet18_50epoch_v1.ipynb
+https://storage.googleapis.com/fastai-export-bucket/xresnet18-mixup-50epoch-v1.pkl
+
+Test-set Performance:
+
+- `get_preds`: lwlrap: 0.6793171763420105
+- `tta`: lwlrap: 0.7338
+
+Deployment:
+
+- Using TTA
+
+------
+xresnet18 standard with Self Attention layer
+
+V1:
+
+data: item_tfms, no batch_tfms
+
+model: xresnet18 non-pretrained with self attention layer
+cbs: MixUp
+lr schedule: fit_one_cycle
+epochs: 50
+
+local: 19011_audio-app_model_v1.ipynb
+https://colab.research.google.com/drive/1KzURTKQP1Efggp-LH7zRJxx-bqYJZhPf#scrollTo=A0k1jP6WM5-q
+https://github.com/mikful/audio-app-mf-ct/blob/master/fastai2_xresnet18_50epoch_v1.ipynb
+
+Test-set Performance:
+
+- `get_preds`: lwlrap: 0.6825
+- `tta`: lwlrap: 0.7282
+
+------
+xresnet18 standard with Self Attention layer, mish, batch transforms
+
+V1:
+
+data: item_tfms + batch_tfms
+
+model: xresnet18 non-pretrained with self attention layer and mish activs 
+cbs: MixUp
+lr schedule: fit_one_cycle
+epochs: 50
+
+local: 19011_audio-app_model_v1.ipynb
+https://colab.research.google.com/drive/1KzURTKQP1Efggp-LH7zRJxx-bqYJZhPf#scrollTo=A0k1jP6WM5-q
+https://github.com/mikful/audio-app-mf-ct/blob/master/fastai2_xresnet18_50epoch_v1.ipynb
+
+Test-set Performance:
+
+- `get_preds`: lwlrap: 0.6686
+- `tta`: lwlrap: 0.7275
+
+------
+xresnet18 SOTA 
+
+V2:
+
+data: item_tfms + batch_tfms
+
+model: xresnet18 non-pretrained, SOTA model with MaxBlur, self-attention etc.
+cbs: MixUp
+lr schedule: fit_flat_cos
+opt_func: ranger
+epochs: 50
+
+local: 19011_audio-app_model_v2_sotamodel_lwlrap.ipynb
+https://colab.research.google.com/drive/1bSmsbXPKEwYN-eRgpeDJSOi9iTeBsFIe#scrollTo=4O5wjvwRgCDk
+
+Test-set Performance:
+
+- `get_preds`: lwlrap: 0.6566
+- `tta`: lwlrap: 0.6973
+
+
+

@@ -1,0 +1,17 @@
+aiofiles
+aiohttp
+asyncio
+fastai==1.0.61
+fastai2==0.0.26
+fastcore==0.1.31
+fastapi[all]
+torch==1.6.0+cpu 
+torchvision==0.6.0+cpu
+torchaudio==0.6.0
+-f https://download.pytorch.org/whl/torch_stable.html
+ipykernel==4.10.1
+numpy==1.18.5
+Pillow==7.0.0
+librosa==0.6.3
+packaging
+-r requirements-fastai2audio.txt
