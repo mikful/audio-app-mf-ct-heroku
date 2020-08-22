@@ -22,7 +22,7 @@ app.add_middleware(CORSMiddleware, allow_origins=['*'],allow_headers=["*"])
 app.mount('/static', StaticFiles(directory='app/static'), name="static")
 
 path = Path(__file__).parent
-export_file_url = 'https://storage.googleapis.com/fastai-export-bucket/xresnet18-mixup-80epoch-moredata_augsv3.pkl # google cloud bucket
+export_file_url = 'https://storage.googleapis.com/fastai-export-bucket/xresnet18-mixup-80epoch-moredata_augsv3.pkl' # google cloud bucket
 export_file_name = 'export.pkl'
 
 # with open('app/classes.txt', 'r') as f:
