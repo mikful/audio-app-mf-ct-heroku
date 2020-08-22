@@ -1,5 +1,5 @@
 # audio-app-mf-ct-heroku
-Heroku deployment of mf ct audio app
+Heroku deployment of mf ct fastai2 audio app using Dockerfile and heroku.yml
 
 # Git deployment steps
 
