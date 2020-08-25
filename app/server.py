@@ -105,10 +105,7 @@ async def analyze(file: bytes = File(...)):
     return JSONResponse({'classifications': json.dumps(results_ordered)})
 
 
-# if __name__ == '__main__':
-#     if 'serve' in sys.argv:
-#         uvicorn.run(app=app, host='0.0.0.0', port=5000, log_level="info") # render
-#         #uvicorn.run(app=app, host='0.0.0.0', port=Port, log_level="info") #heroku
+Port = int(os.environ.get('PORT', 5000))
 if __name__ == '__main__':
-    port = os.getenv('PORT',5000)
-    app.run(debug=True, host='0.0.0.0', port=port) 
+    if 'serve' in sys.argv:
+        uvicorn.run(app=app, host='0.0.0.0', port=Port, log_level="info") #heroku
