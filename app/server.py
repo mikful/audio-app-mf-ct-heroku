@@ -3,10 +3,10 @@ import asyncio
 import uvicorn
 import ast
 import aiofiles
-from fastai2 import *
-from fastai2.vision.all import *
-from fastai2_audio.core.all import *
-from fastai2_audio.augment.all import *
+from fastai import *
+from fastai.vision.all import *
+from fastaudio.core.all import *
+from fastaudio.augment.all import *
 from io import BytesIO
 from fastapi import FastAPI, File, Form, UploadFile
 from fastapi.responses import HTMLResponse, JSONResponse
@@ -22,7 +22,7 @@ app.add_middleware(CORSMiddleware, allow_origins=['*'],allow_headers=["*"])
 app.mount('/static', StaticFiles(directory='app/static'), name="static")
 
 path = Path(__file__).parent
-export_file_url = 'https://storage.googleapis.com/fastai-export-bucket/xresnet18-mixup-80epoch-moredata_augsv3.pkl' # google cloud bucket
+export_file_url = 'hhttps://storage.googleapis.com/fastai-export-bucket/v1-xresnet18-80epoch-standard-cutmix%2Bmixup.pkl' # google cloud bucket
 export_file_name = 'export.pkl'
 
 # with open('app/classes.txt', 'r') as f:

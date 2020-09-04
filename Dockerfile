@@ -1,4 +1,4 @@
-FROM python:3.6-slim-stretch
+FROM python:3.8-slim-stretch
 
 RUN apt-get update && apt-get install -y git python3-dev gcc \
     && rm -rf /var/lib/apt/lists/*
@@ -11,7 +11,7 @@ COPY requirements.txt .
 
 RUN pip install --upgrade -r requirements.txt
 
-RUN pip install git+https://github.com/mikful/fastai2_audio.git
+RUN pip install git+https://github.com/fastaudio/fastaudio.git
 
 COPY app app/
 
