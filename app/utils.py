@@ -83,7 +83,6 @@ def lwlrap(scores, truth, **kwargs):
     return torch.Tensor([(score * weight).sum()])
 
 
-
 # # Cell
 # class CutMixEdit(Callback):
 #     "Implementation of `https://arxiv.org/abs/1905.04899`"
