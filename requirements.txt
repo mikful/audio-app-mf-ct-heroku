@@ -3,7 +3,7 @@ aiohttp
 asyncio
 fastai==2.0.6
 fastai2==0.0.30
-fastcore==1.0.01
+fastcore==1.0.0
 fastapi[all]
 torch==1.6.0+cpu 
 torchvision==0.7.0+cpu
