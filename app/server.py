@@ -1,3 +1,5 @@
+import os
+import requests
 import aiohttp
 import asyncio
 import uvicorn
@@ -22,7 +24,9 @@ app.add_middleware(CORSMiddleware, allow_origins=['*'],allow_headers=["*"])
 app.mount('/static', StaticFiles(directory='app/static'), name="static")
 
 path = Path(__file__).parent
+
 export_file_url = 'hhttps://storage.googleapis.com/fastai-export-bucket/v1-xresnet18-80epoch-standard-cutmix%2Bmixup.pkl' # google cloud bucket
+
 export_file_name = 'export.pkl'
 
 # with open('app/classes.txt', 'r') as f:
@@ -104,7 +108,7 @@ async def analyze(file: bytes = File(...)):
     return JSONResponse({'classifications': json.dumps(results_ordered)})
 
 
+Port = int(os.environ.get('PORT', 5000))
 if __name__ == '__main__':
     if 'serve' in sys.argv:
-        uvicorn.run(app=app, host='0.0.0.0', port=5000, log_level="info") # render
-        #uvicorn.run(app=app, host='0.0.0.0', port=Port, log_level="info") #heroku
+        uvicorn.run(app=app, host='0.0.0.0', port=Port, log_level="info") #heroku
