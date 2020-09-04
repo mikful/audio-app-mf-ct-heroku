@@ -9,7 +9,7 @@ from fastai import *
 from fastai.vision.all import *
 from fastaudio.core.all import *
 from fastaudio.augment.all import *
-from fastai.callback.core import *
+from fastai.callback.core import Callback
 from io import BytesIO
 from fastapi import FastAPI, File, Form, UploadFile
 from fastapi.responses import HTMLResponse, JSONResponse
@@ -20,6 +20,8 @@ from torch.distributions.beta import Beta
 
 # import all additional Learner functions
 from utils import *
+
+Callback
 
 app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=['*'],allow_headers=["*"])
@@ -59,7 +61,6 @@ async def setup_learner():
         print("dl pkl file size:", Path(pkl_dest).stat().st_size)
         print("loading learner...")
         learn = load_learner(pkl_dest)
-        learn.add_cb(CutMixEdit())
         learn.dls.device = 'cpu'
         print("learner loaded")
         print("learner classes:", learn.dls.vocab)
