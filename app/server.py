@@ -59,6 +59,7 @@ async def setup_learner():
         print("dl pkl file size:", Path(pkl_dest).stat().st_size)
         print("loading learner...")
         learn = load_learner(pkl_dest)
+        learn.add_cb(CutMixEdit())
         learn.dls.device = 'cpu'
         print("learner loaded")
         print("learner classes:", learn.dls.vocab)
