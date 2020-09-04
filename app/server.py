@@ -27,7 +27,7 @@ app.mount('/static', StaticFiles(directory='app/static'), name="static")
 
 path = Path(__file__).parent
 
-export_file_url = 'hhttps://storage.googleapis.com/fastai-export-bucket/v1-xresnet18-80epoch-standard-cutmix%2Bmixup.pkl' # google cloud bucket
+export_file_url = 'https://storage.googleapis.com/fastai-export-bucket/v1-xresnet18-80epoch-standard-cutmix%2Bmixup.pkl' # google cloud bucket
 
 export_file_name = 'export.pkl'
 
