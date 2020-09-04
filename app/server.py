@@ -9,7 +9,7 @@ from fastai import *
 from fastai.vision.all import *
 from fastaudio.core.all import *
 from fastaudio.augment.all import *
-from fastai.callback.all import *
+from fastai.callback.core import *
 from io import BytesIO
 from fastapi import FastAPI, File, Form, UploadFile
 from fastapi.responses import HTMLResponse, JSONResponse
