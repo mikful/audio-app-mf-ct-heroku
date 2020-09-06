@@ -11,7 +11,7 @@ COPY requirements.txt .
 
 RUN pip install --upgrade -r requirements.txt
 
-RUN pip install git+https://github.com/fastaudio/fastaudio.git
+RUN pip install git+https://github.com/mikful/fastaudio.git
 
 COPY app app/
 
