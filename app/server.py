@@ -5,23 +5,24 @@ import asyncio
 import uvicorn
 import ast
 import aiofiles
+from torch.distributions.beta import Beta
+
 from fastai import *
 from fastai.vision.all import *
 from fastaudio.core.all import *
 from fastaudio.augment.all import *
-from fastai.callback.core import Callback
+from fastai.callback.all import *
 from io import BytesIO
 from fastapi import FastAPI, File, Form, UploadFile
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 import json
-from torch.distributions.beta import Beta
 
 # import all additional Learner functions
-from utils import *
+import utils
+#from utils import CutMixEdit
 
-Callback
 
 app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=['*'],allow_headers=["*"])
@@ -100,15 +101,18 @@ async def analyze(file: bytes = File(...)):
     with open(sound_file, mode='bx') as f: f.write(wav.getvalue())
     print("sound_file:", sound_file)
     print("audio file size:", Path(sound_file).stat().st_size)
-    test_dl = learn.dls.test_dl(sound_file, with_label=False) # use tta for higher accuracy
-    with learn.no_bar():
-        preds, targs = learn.tta(dl=test_dl)
-    print("preds:", preds)
+    prediction, idx, preds =  learn.predict(Path(sound_file))
+
+    # test_dl = learn.dls.test_dl(sound_file, with_label=False) # or use tta for higher accuracy (not currently working)
+    # with learn.no_bar():
+    #     preds, targs = learn.tta(dl=test_dl)
+    # print("preds:", preds)
     #predictions = learn.dls.vocab[np.argwhere(preds.squeeze() > 0.2).squeeze()] # 20% threshold (maybe use later)
+
     predictions_ordered = learn.dls.vocab[np.argsort(preds.squeeze()).squeeze()][::-1] # descending order
     conf_sorted = np.sort(preds.squeeze()).squeeze()[::-1] # descending order
     results_ordered = tuple(zip(predictions_ordered, np.rint(conf_sorted*100).tolist()))
-    print(f"first 5 predictions_ordered: {results_ordered[:5]}", )
+    # print(f"first 5 predictions_ordered: {results_ordered[:5]}")
     return JSONResponse({'classifications': json.dumps(results_ordered)})
 
 

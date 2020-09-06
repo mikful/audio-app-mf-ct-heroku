@@ -1,17 +1,17 @@
-from fastai2 import *
-from fastai2.vision.all import *
-from fastai2_audio.core.all import *
-from fastai2_audio.augment.all import *
-from pydub import AudioSegment
+from fastai import *
+from fastai.vision.all import *
+from fastaudio.core.all import *
+from fastaudio.augment.all import *
 
 # import all additional Learner functions
 from utils import *
+from pathlib import Path
 
 import json
 
 
-testfile = "/home/mikef/Documents/ml-test-files/audio/Cat-Meow.wav"
-model = "/home/mikef/Documents/GitHub/audio-app-mf-ct/app/models/xresnet18-mixup-80epoch-moredata_augsv3.pkl"
+testfile = Path("/workspaces/audio-app-mf-ct-heroku/app/testfiles/Cat-Meow.wav")
+model = "/workspaces/audio-app-mf-ct-heroku/app/models/v1-xresnet18-80epoch-standard-cutmix+mixup.pkl"
 
 def analyze():
     learn = load_learner(model)
