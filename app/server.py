@@ -20,7 +20,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import json
 
 # import all additional Learner functions
-import utils
+from utils import *
 #from utils import CutMixEdit
 
 
