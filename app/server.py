@@ -6,7 +6,6 @@ import uvicorn
 import ast
 import aiofiles
 from torch.distributions.beta import Beta
-
 from fastai import *
 from fastai.vision.all import *
 from fastaudio.core.all import *
@@ -21,17 +20,13 @@ import json
 
 # import all additional Learner functions
 from utils import *
-#from utils import CutMixEdit
-
 
 app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=['*'],allow_headers=["*"])
 app.mount('/static', StaticFiles(directory='app/static'), name="static")
 
 path = Path(__file__).parent
-
 export_file_url = 'https://storage.googleapis.com/fastai-export-bucket/v1-xresnet18-80epoch-standard-cutmix%2Bmixup.pkl' # google cloud bucket
-
 export_file_name = 'export.pkl'
 
 
@@ -109,7 +104,6 @@ async def analyze(file: bytes = File(...)):
     predictions_ordered = learn.dls.vocab[np.argsort(preds.squeeze()).squeeze()][::-1] # descending order
     conf_sorted = np.sort(preds.squeeze()).squeeze()[::-1] # descending order
     results_ordered = tuple(zip(predictions_ordered, np.rint(conf_sorted*100).tolist()))
-    # print(f"first 5 predictions_ordered: {results_ordered[:5]}")
     return JSONResponse({'classifications': json.dumps(results_ordered)})
 
 
