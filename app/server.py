@@ -34,9 +34,6 @@ export_file_url = 'https://storage.googleapis.com/fastai-export-bucket/v1-xresne
 
 export_file_name = 'export.pkl'
 
-# with open('app/classes.txt', 'r') as f:
-#     classes = ast.literal_eval(f.read())
-
 
 async def download_file(url, dest):
     print("Attempting pkl file download")
@@ -97,7 +94,7 @@ async def analyze(file: bytes = File(...)):
     print("wav bytes content:", wav)
     print(type(wav))
     utc_time = str(int(time.time()))
-    sound_file = "audio_uploads/sound_" + utc_time + ".wav"
+    sound_file = "tmp/sound_" + utc_time + ".wav"
     with open(sound_file, mode='bx') as f: f.write(wav.getvalue())
     print("sound_file:", sound_file)
     print("audio file size:", Path(sound_file).stat().st_size)
