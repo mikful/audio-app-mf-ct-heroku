@@ -31,18 +31,12 @@ export_file_name = 'export.pkl'
 
 
 async def download_file(url, dest):
-    print("Attempting pkl file download")
-    print("url:", url)
-    print("dest:", dest)
     if dest.exists(): 
         return "dest.exists()"
     async with aiohttp.ClientSession() as session:
-        print("async session")
         async with session.get(url) as response:
-            print("response", response)
             if response.status == 200:
                 f = await aiofiles.open(dest, mode='wb')
-                print("writing learner data:", f)
                 await f.write(await response.read())
                 await f.close()
 
@@ -50,17 +44,11 @@ async def setup_learner():
     pkl_dest = path/"models"/export_file_name
     await download_file(export_file_url, pkl_dest)
     try:
-        print("pkl file exists?:", path/export_file_name, os.path.exists(pkl_dest))
-        print("dl pkl file size:", Path(pkl_dest).stat().st_size)
-        print("loading learner...")
         learn = load_learner(pkl_dest)
         learn.dls.device = 'cpu'
-        print("learner loaded")
-        print("learner classes:", learn.dls.vocab)
         return learn
     except RuntimeError as e:
         if len(e.args) > 0 and 'CPU-only machine' in e.args[0]:
-            print(e)
             message = "\n\nThis model was trained with an old version of fastai and will not work in a CPU environment.\n\nPlease update the fastai library in your training environment and export your model again.\n\nSee instructions for 'Returning to work' at https://course.fast.ai."
             raise RuntimeError(message)
         else:
@@ -86,21 +74,10 @@ async def homepage():
 @app.post("/analyze")
 async def analyze(file: bytes = File(...)):
     wav = BytesIO(file)
-    print("wav bytes content:", wav)
-    print(type(wav))
     utc_time = str(int(time.time()))
     sound_file = "tmp/sound_" + utc_time + ".wav"
     with open(sound_file, mode='bx') as f: f.write(wav.getvalue())
-    print("sound_file:", sound_file)
-    print("audio file size:", Path(sound_file).stat().st_size)
     prediction, idx, preds =  learn.predict(Path(sound_file))
-
-    # test_dl = learn.dls.test_dl(sound_file, with_label=False) # or use tta for higher accuracy (not currently working)
-    # with learn.no_bar():
-    #     preds, targs = learn.tta(dl=test_dl)
-    # print("preds:", preds)
-    #predictions = learn.dls.vocab[np.argwhere(preds.squeeze() > 0.2).squeeze()] # 20% threshold (maybe use later)
-
     predictions_ordered = learn.dls.vocab[np.argsort(preds.squeeze()).squeeze()][::-1] # descending order
     conf_sorted = np.sort(preds.squeeze()).squeeze()[::-1] # descending order
     results_ordered = tuple(zip(predictions_ordered, np.rint(conf_sorted*100).tolist()))
